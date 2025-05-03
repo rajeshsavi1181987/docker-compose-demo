@@ -7,14 +7,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install system dependencies for PostgreSQL (only needed if you're using psycopg2)
-# For psycopg2-binary, this is not required, but if you opt for psycopg2, it's necessary
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install required Python packages
-# Replace psycopg2 with psycopg2-binary to avoid compilation issues
+# Install Python dependencies, using psycopg2-binary instead of psycopg2
 RUN pip install --no-cache-dir flask psycopg2-binary
 
 # Expose the port the app runs on
