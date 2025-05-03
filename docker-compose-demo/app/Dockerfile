@@ -1,20 +1,23 @@
-# Use an official Python runtime as a parent image
+# Use the official Python image from Docker Hub
 FROM python:3.9-slim
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
 # Copy the current directory contents into the container
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the required dependencies
+RUN pip install --no-cache-dir flask psycopg2-binary
 
-# Make port 80 available to the world outside this container
+# Expose the port that Flask will run on
 EXPOSE 80
 
-# Define environment variable
-ENV NAME World
+# Set the environment variables for the database (if necessary)
+# ENV DB_HOST=<your-db-host>
+# ENV DB_NAME=<your-db-name>
+# ENV DB_USER=<your-db-user>
+# ENV DB_PASS=<your-db-password>
 
-# Run app.py when the container launches
+# Run the Flask application
 CMD ["python", "app.py"]
