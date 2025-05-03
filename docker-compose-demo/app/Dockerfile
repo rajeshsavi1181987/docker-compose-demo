@@ -4,22 +4,22 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install PostgreSQL development libraries
+# Install PostgreSQL development libraries for psycopg2 if needed
 RUN apt-get update && apt-get install -y libpq-dev
 
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Install dependencies
 RUN pip install --no-cache-dir flask psycopg2-binary
 
-# Make port 5000 available to the world outside this container
+# Expose port 5000
 EXPOSE 5000
 
 # Define environment variable
 ENV NAME World
 
-# Run app.py when the container launches
+# Run the app
 CMD ["python", "app.py"]
 
 
