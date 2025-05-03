@@ -1,10 +1,9 @@
-# Use Python 3.9 slim image
 FROM python:3.9-slim
 
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies for psycopg2
+# Install system dependencies for psycopg2 and other necessary libraries
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
@@ -19,5 +18,6 @@ RUN pip install flask psycopg2
 
 # Run the application
 CMD ["python", "app.py"]
+
 
 
