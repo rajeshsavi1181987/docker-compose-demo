@@ -4,23 +4,17 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install the PostgreSQL development libraries (required for psycopg2)
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy the current directory contents into the container at /app
+# Copy the current directory contents into the container
 COPY . /app
 
-# Install Flask and psycopg2-binary (use psycopg2-binary to avoid pg_config issue)
-RUN pip install --upgrade pip
-RUN pip install flask psycopg2-binary
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port the app will run on
-EXPOSE 5000
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
-# Define environment variables (if needed)
-# ENV FLASK_ENV=development
+# Define environment variable
+ENV NAME World
 
-# Run the application (assuming you have app.py in the working directory)
+# Run app.py when the container launches
 CMD ["python", "app.py"]
