@@ -19,3 +19,5 @@ RUN pip install flask psycopg2
 
 # Run the application
 CMD ["python", "app.py"]
+
+
